@@ -5,3 +5,5 @@ dist/
 *.log
 blender/preview_*.png
 blender/*.blend1
+
+.vercel
