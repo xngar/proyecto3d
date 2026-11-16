@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Living &amp; Comedor 3D — Recorrido Virtual Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene-canvas"></canvas>
+
+      <!-- Top HUD -->
+      <header class="hud-top">
+        <div class="brand-badge glass">
+          <div class="brand-dot"></div>
+          <div>
+            <h1>Living &amp; Comedor</h1>
+            <p id="current-zone-label">Vista General</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button id="btn-day-night" class="glass-btn" type="button" title="Cambiar iluminación Día / Noche">
+            <span id="day-night-icon" aria-hidden="true">☀️</span>
+            <span id="day-night-label">Modo Día</span>
+          </button>
+          <button id="btn-toggle-hotspots" class="glass-btn active" type="button" title="Mostrar u ocultar puntos de interés">
+            <span aria-hidden="true">📍</span>
+            <span>Puntos</span>
+          </button>
+          <button id="btn-help" class="glass-btn icon-only" type="button" title="Controles y ayuda" aria-label="Ayuda">
+            ?
+          </button>
+        </div>
+      </header>
+
+      <!-- Hover Tooltip -->
+      <div id="hover-tooltip" class="hover-tooltip hidden"></div>
+
+      <!-- Hotspot Info Card -->
+      <aside id="info-card" class="info-card glass hidden" aria-live="polite">
+        <div class="info-card-header">
+          <span id="info-category" class="info-badge">Mobiliario</span>
+          <button id="btn-close-card" class="close-btn" type="button" aria-label="Cerrar ficha">✕</button>
+        </div>
+        <h2 id="info-title">Título del elemento</h2>
+        <p id="info-description">Descripción corta del mobiliario o detalle decorativo.</p>
+        <div id="info-extra-actions" class="info-extra-actions hidden"></div>
+        <div class="info-card-footer">
+          <button id="btn-prev-hotspot" class="ghost-btn" type="button">← Anterior</button>
+          <span id="info-counter" class="info-counter">1 / 7</span>
+          <button id="btn-next-hotspot" class="ghost-btn" type="button">Siguiente →</button>
+        </div>
+      </aside>
+
+      <!-- Bottom Dock: Quick Tour Zones -->
+      <nav class="hud-bottom" aria-label="Zonas del recorrido">
+        <div class="zone-dock glass" id="zone-dock"></div>
+        <div class="controls-hint glass">
+          <span><strong>WASD / Flechas</strong> caminar</span>
+          <span class="sep">·</span>
+          <span><strong>Arrastrar</strong> mirar</span>
+          <span class="sep">·</span>
+          <span><strong>Clic</strong> en objetos o suelo</span>
+        </div>
+      </nav>
+
+      <!-- Mobile / Touch D-Pad (shown on touch devices or narrow screens) -->
+      <div class="touch-pad glass" id="touch-pad" aria-label="Controles táctiles de movimiento">
+        <button class="pad-btn up" data-move="forward" type="button" aria-label="Avanzar">▲</button>
+        <button class="pad-btn left" data-move="left" type="button" aria-label="Izquierda">◀</button>
+        <button class="pad-btn right" data-move="right" type="button" aria-label="Derecha">▶</button>
+        <button class="pad-btn down" data-move="backward" type="button" aria-label="Retroceder">▼</button>
+      </div>
+
+      <!-- Help Modal -->
+      <div id="help-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <div class="modal-card glass">
+          <div class="modal-header">
+            <h2 id="help-title">Cómo recorrer el espacio</h2>
+            <button id="btn-close-help" class="close-btn" type="button" aria-label="Cerrar ayuda">✕</button>
+          </div>
+          <ul class="help-list">
+            <li><strong>Caminar libremente:</strong> Usa las teclas <code>W A S D</code> o las <code>Flechas</code> del teclado.</li>
+            <li><strong>Mirar alrededor:</strong> Mantén presionado el clic izquierdo y arrastra suavemente el cursor (o desliza con un dedo en pantallas táctiles).</li>
+            <li><strong>Teletransporte en el suelo:</strong> Haz clic sobre los anillos luminosos en el piso o usa la barra inferior para ir directo a cada zona.</li>
+            <li><strong>Explorar objetos:</strong> Haz clic en los marcadores <strong>●</strong> o directamente sobre el sofá, televisor, mesa, cuadros o lámparas para ver su ficha y activar funciones simuladas.</li>
+            <li><strong>Ambiente Día / Noche:</strong> Cambia entre luz natural del ventanal e iluminación cálida nocturna desde el botón superior.</li>
+          </ul>
+          <button id="btn-start-tour" class="primary-btn" type="button">Entrar al recorrido</button>
+        </div>
+      </div>
+
+      <!-- Subtle Fade-in Loading Overlay -->
+      <div id="loading-screen" class="loading-screen">
+        <div class="loading-box glass">
+          <div class="spinner"></div>
+          <p>Preparando escena 3D del living-comedor...</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
